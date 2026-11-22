@@ -73,7 +73,7 @@ jobs:
       - name: Point channel.json
         run: |
           printf '{\n  "schema": 1,\n  "ref": "%s"\n}\n' "${{ steps.ref.outputs.tag }}" > channel.json
-          if git diff --quiet -- channel.json; then echo "이미 ${{ steps.ref.outputs.tag }} 를 가리킵니다"; exit 0; fi
+          if [ -z "$(git status --porcelain -- channel.json)" ]; then   # 새 파일(추적 전)도 변경으로 잡음 echo "이미 ${{ steps.ref.outputs.tag }} 를 가리킵니다"; exit 0; fi
           git add channel.json
           git commit -m "Release ${{ steps.ref.outputs.tag }}"
           git push origin HEAD:main
