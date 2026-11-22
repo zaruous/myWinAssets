@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/zaruous/myWinAssets/schema/manifest.schema.json",
+  "title": "LiveWallpaper 에셋 팩 manifest",
+  "type": "object",
+  "required": ["id", "version", "type", "title"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "id": {
+      "description": "팩 고유 ID = 폴더 이름. 소문자·숫자·하이픈.",
+      "type": "string", "pattern": "^[a-z0-9][a-z0-9-]{1,47}$"
+    },
+    "version": { "description": "SemVer (예: 1.2.0). 바꾸면 앱이 업데이트로 인식.", "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "type": { "enum": ["scene"], "description": "scene: 배경 장면 (scene.js). 이후 theme·media 추가 예정." },
+    "sceneApi": { "description": "장면 플러그인 인터페이스 버전. type=scene 이면 필수.", "type": "integer", "minimum": 1 },
+    "title": { "type": "string", "minLength": 1, "maxLength": 60 },
+    "icon": { "description": "목록에 붙는 이모지 1개", "type": "string", "maxLength": 8 },
+    "description": { "type": "string", "maxLength": 400 },
+    "author": { "type": "string" },
+    "tags": { "type": "array", "items": { "type": "string", "pattern": "^[a-z0-9-]+$" } },
+    "thumb": { "description": "썸네일 (16:9 권장, 480×270)", "type": "string" },
+    "entry": { "description": "장면 스크립트 (팩 폴더 기준 상대 경로)", "type": "string", "default": "scene.js" },
+    "actions": {
+      "description": "설정 창에 버튼으로 나타나는 장면 액션. 누르면 scene.action(id) 호출.",
+      "type": "array",
+      "items": {
+        "type": "object", "required": ["id", "label"], "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+          "label": { "type": "string" }
+        }
+      }
+    }
+  },
+  "if": { "properties": { "type": { "const": "scene" } } },
+  "then": { "required": ["sceneApi", "entry"] }
+}

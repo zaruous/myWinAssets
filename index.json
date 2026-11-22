@@ -1,0 +1,94 @@
+{
+  "schema": 1,
+  "packs": [
+    {
+      "id": "xmas-eve",
+      "version": "1.0.0",
+      "type": "scene",
+      "sceneApi": 1,
+      "title": "크리스마스 이브 썰매 비행",
+      "icon": "🎄",
+      "description": "썰매에 앉은 1인칭 시점으로 눈 내리는 산골 마을·오로라 호수·보름달 마을 위를 날며 창문마다 선물을 배달합니다. 마우스로 방향을 틀고 클릭하면 루돌프 부스트.",
+      "author": "LiveWallpaper",
+      "tags": [
+        "christmas",
+        "winter",
+        "snow",
+        "night"
+      ],
+      "thumb": "thumb.jpg",
+      "entry": "scene.js",
+      "actions": [
+        {
+          "id": "gift",
+          "label": "🎁 선물 투하"
+        },
+        {
+          "id": "boost",
+          "label": "🔴 루돌프 부스트"
+        },
+        {
+          "id": "village",
+          "label": "🏘️ 산골 마을"
+        },
+        {
+          "id": "aurora",
+          "label": "🌌 오로라 호수"
+        },
+        {
+          "id": "moon",
+          "label": "🌕 보름달 마을"
+        }
+      ],
+      "path": "packs/xmas-eve",
+      "size": 2232985,
+      "files": [
+        {
+          "path": "assets/xmas_aurora.jpg",
+          "size": 240282,
+          "sha256": "74c238f7548b5b61a798c558059008b5c26eaeb9c7a52d89502e331837719bde"
+        },
+        {
+          "path": "assets/xmas_gift.png",
+          "size": 175174,
+          "sha256": "6401830613af3d0ad509c2a5459b91cfc82cab2d8c92cb5288da5b441d85547d"
+        },
+        {
+          "path": "assets/xmas_moon.jpg",
+          "size": 258212,
+          "sha256": "2f7ae7f20164df7fa64216eb0aa5236e39c221b39c2d28316f42a4fefa5004b4"
+        },
+        {
+          "path": "assets/xmas_reindeer_team.png",
+          "size": 594607,
+          "sha256": "20ba89ae083c631f32863d9a5e9d6a36a892d219ae7aca8202373123eb28f61b"
+        },
+        {
+          "path": "assets/xmas_sleigh_front.png",
+          "size": 563038,
+          "sha256": "6c8dbf8ae59addcb5acf59e2ecc7de340120121f8af10509daad8247ad227362"
+        },
+        {
+          "path": "assets/xmas_village.jpg",
+          "size": 348176,
+          "sha256": "7687d9c1db85517f9014c27ca9b4865a4ebfd5fe0ec58931be84fbd9d0f6d8bd"
+        },
+        {
+          "path": "manifest.json",
+          "size": 873,
+          "sha256": "07652a299d37a3eca70d5d06465438eb4db7034422000e6643f0486e5f5b7e1e"
+        },
+        {
+          "path": "scene.js",
+          "size": 20473,
+          "sha256": "d2e7cfaf01ce90b367085ead51f954c4e1f775b511cecff156452b04fc59c3b5"
+        },
+        {
+          "path": "thumb.jpg",
+          "size": 32150,
+          "sha256": "518b9b8bfec31f1f5251e068515ea5c46502eadf203f51ad4ae7344b190ddca8"
+        }
+      ]
+    }
+  ]
+}
