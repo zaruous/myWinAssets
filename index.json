@@ -41,7 +41,7 @@
         }
       ],
       "path": "packs/xmas-eve",
-      "size": 2232985,
+      "size": 2232833,
       "files": [
         {
           "path": "assets/xmas_aurora.jpg",
@@ -80,8 +80,8 @@
         },
         {
           "path": "scene.js",
-          "size": 20473,
-          "sha256": "d2e7cfaf01ce90b367085ead51f954c4e1f775b511cecff156452b04fc59c3b5"
+          "size": 20321,
+          "sha256": "d7f765aad6b51243d4847ef62dcaaae8e49c07947e88e5c58fafe83a3b72473d"
         },
         {
           "path": "thumb.jpg",
