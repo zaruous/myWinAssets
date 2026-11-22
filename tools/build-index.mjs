@@ -32,6 +32,7 @@ function validate(m, dir, folder) {
     if (!m.entry || !existsSync(join(dir, m.entry))) err(`entry "${m.entry}" 파일 없음`);
   }
   if (m.thumb && !existsSync(join(dir, m.thumb))) err(`thumb "${m.thumb}" 파일 없음`);
+  if (m.minAppVersion !== undefined && !/^\d+\.\d+\.\d+$/.test(m.minAppVersion)) err('minAppVersion 은 1.2.3 형식');
   const ids = new Set();
   for (const a of m.actions ?? []) {
     if (!/^[a-z0-9-]+$/.test(a.id ?? '') || !a.label) err(`잘못된 action ${JSON.stringify(a)}`);

@@ -14,6 +14,7 @@
     "version": { "description": "SemVer (예: 1.2.0). 바꾸면 앱이 업데이트로 인식.", "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
     "type": { "enum": ["scene"], "description": "scene: 배경 장면 (scene.js). 이후 theme·media 추가 예정." },
     "sceneApi": { "description": "장면 플러그인 인터페이스 버전. type=scene 이면 필수.", "type": "integer", "minimum": 1 },
+    "minAppVersion": { "description": "이 팩을 쓰려면 필요한 최소 앱 버전 (LiveWallpaper.csproj 의 <Version>). 더 낮은 앱에서는 '앱 업데이트 필요'로 표시.", "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
     "title": { "type": "string", "minLength": 1, "maxLength": 60 },
     "icon": { "description": "목록에 붙는 이모지 1개", "type": "string", "maxLength": 8 },
     "description": { "type": "string", "maxLength": 400 },
