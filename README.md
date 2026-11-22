@@ -21,6 +21,7 @@ myWinAssets/
 1. `packs/<id>/` 폴더를 만들고 `manifest.json`, `thumb.jpg`, `scene.js`, `assets/`를 넣습니다. (`id` = 폴더 이름)
 2. 고칠 때는 `manifest.json`의 `version`을 올립니다. 앱은 버전이 바뀌어야 업데이트로 인식합니다.
    - 팩이 새 앱 기능에 기대면 `"minAppVersion": "1.2.0"`을 적습니다. 그보다 낮은 앱에서는 스토어에 "앱 업데이트 필요"로 표시되고 설치되지 않습니다. (앱 버전 = `LiveWallpaper.csproj`의 `<Version>`)
+   - 앱 없이 장면만 보려면 레포 루트에서 `python -m http.server 8790`을 실행하고 `http://localhost:8790/tools/preview.html?pack=<id>`를 엽니다. (장면 버튼·색감 필터·펫 자리 표시 포함)
 3. `node tools/build-index.mjs`로 검사합니다. (`main`에 push하면 Action이 `index.json`을 다시 만들어 커밋합니다)
 4. **배포**: GitHub → Actions → `release` → *Run workflow*. (또는 `gh workflow run release -R zaruous/myWinAssets`)
 

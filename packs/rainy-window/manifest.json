@@ -1,0 +1,41 @@
+{
+  "$schema": "../../schema/manifest.schema.json",
+  "id": "rainy-window",
+  "version": "1.0.0",
+  "type": "scene",
+  "sceneApi": 1,
+  "title": "비 오는 창가",
+  "icon": "🌧️",
+  "description": "비 내리는 밤 호수를 유리창 너머로 바라봅니다. 앞을 가리는 것 없이 화면 전체가 유리이고, 빗방울이 렌즈처럼 풍경을 비추며 흘러내립니다. 김 서린 유리는 클릭해서 닦을 수 있고, 호수에는 빗방울 파문이 번지며 안개 속에 정령 불빛이 떠다닙니다.",
+  "author": "LiveWallpaper",
+  "tags": [
+    "rain",
+    "night",
+    "calm",
+    "mystic"
+  ],
+  "thumb": "thumb.jpg",
+  "entry": "scene.js",
+  "actions": [
+    {
+      "id": "wipe",
+      "label": "✋ 창 닦기"
+    },
+    {
+      "id": "lightning",
+      "label": "⚡ 먼 번개"
+    },
+    {
+      "id": "heavy",
+      "label": "🌧️ 빗줄기 세게"
+    },
+    {
+      "id": "light",
+      "label": "🌦️ 빗줄기 약하게"
+    },
+    {
+      "id": "spirits",
+      "label": "✨ 정령 불빛"
+    }
+  ]
+}
