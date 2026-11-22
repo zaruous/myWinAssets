@@ -21,7 +21,21 @@ myWinAssets/
 1. `packs/<id>/` 폴더를 만들고 `manifest.json`, `thumb.jpg`, `scene.js`, `assets/`를 넣습니다. (`id` = 폴더 이름)
 2. 고칠 때는 `manifest.json`의 `version`을 올립니다. 앱은 버전이 바뀌어야 업데이트로 인식합니다.
 3. `node tools/build-index.mjs`로 검사합니다. (`main`에 push하면 Action이 `index.json`을 다시 만들어 커밋합니다)
-4. 배포할 시점에 태그를 답니다. 앱은 태그 기준으로 내려받습니다(예: `v2026.11.1`).
+4. **배포**: GitHub → Actions → `release` → *Run workflow*. (또는 `gh workflow run release -R zaruous/myWinAssets`)
+
+## 배포 구조 (채널 + 태그)
+
+```
+앱 ── ① raw.githubusercontent.com/…/main/channel.json   { "ref": "v2026.11.22" }
+   └─ ② cdn.jsdelivr.net/gh/zaruous/myWinAssets@v2026.11.22/index.json, 팩 파일
+        (실패하면 raw.githubusercontent.com/…/v2026.11.22/ 로 재시도)
+```
+
+- `main`에 push해도 **배포 전까지는 사용자에게 보이지 않습니다.** 앱은 `channel.json`이 가리키는 태그만 읽습니다.
+- `release` 워크플로가 `index.json` 확인 → 태그 `vYYYY.MM.DD`(같은 날 또 하면 `.2`, `.3` …) 생성 → `channel.json` 갱신을 처리합니다.
+- 태그는 내용이 바뀌지 않으므로 목록과 파일이 항상 짝이 맞고, CDN이 영구 캐시합니다.
+- **롤백**: `release`를 실행할 때 `rollback_to`에 이전 태그를 넣으면 `channel.json`만 되돌립니다.
+- 앱 개발 중 배포 전 상태를 미리 보려면 환경 변수 `LIVEWALLPAPER_STORE_URL=https://raw.githubusercontent.com/zaruous/myWinAssets/main/`로 채널을 건너뛸 수 있습니다.
 
 > 파일은 바이트 그대로 저장합니다(`.gitattributes`의 `* -text`). 줄바꿈이 바뀌면 sha256이 달라져 앱이 설치를 거부합니다.
 > 파일 하나는 20MB 이하로 유지합니다(jsDelivr CDN 제한). 큰 영상은 Release 첨부 파일로 올립니다.

@@ -1,0 +1,80 @@
+name: release
+
+# 배포: 현재 main 을 태그로 고정하고 channel.json 이 그 태그를 가리키게 함.
+# 앱은 main 의 channel.json 만 읽고, 목록·파일은 그 태그(jsDelivr CDN)에서 받으므로
+# 배포 전까지 main 에 무엇을 올려도 사용자에게 보이지 않음. 롤백: rollback_to 에 이전 태그 입력.
+on:
+  workflow_dispatch:
+    inputs:
+      rollback_to:
+        description: '롤백할 기존 태그 (비우면 현재 main 으로 새 배포)'
+        required: false
+        default: ''
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Configure git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Decide ref
+        id: ref
+        env:
+          ROLLBACK: ${{ inputs.rollback_to }}
+        run: |
+          if [ -n "$ROLLBACK" ]; then
+            git rev-parse -q --verify "refs/tags/$ROLLBACK" >/dev/null || { echo "::error::태그 $ROLLBACK 이 없습니다"; exit 1; }
+            echo "tag=$ROLLBACK" >> "$GITHUB_OUTPUT"
+            echo "new=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          # index.json 이 최신이 아니면 먼저 갱신해 커밋 (태그에 맞는 목록이 들어가도록)
+          node tools/build-index.mjs
+          if ! git diff --quiet -- index.json; then
+            git add index.json
+            git commit -m "Rebuild index.json"
+            git push origin HEAD:main
+          fi
+          base="v$(date -u +%Y.%m.%d)"
+          tag="$base"; n=2
+          while git rev-parse -q --verify "refs/tags/$tag" >/dev/null; do tag="$base.$n"; n=$((n+1)); done
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+          echo "new=true" >> "$GITHUB_OUTPUT"
+
+      - name: Create tag
+        if: steps.ref.outputs.new == 'true'
+        run: |
+          git tag -a "${{ steps.ref.outputs.tag }}" -m "Asset release ${{ steps.ref.outputs.tag }}"
+          git push origin "${{ steps.ref.outputs.tag }}"
+
+      - name: Warm CDN
+        run: |
+          # 첫 사용자가 느리지 않도록 jsDelivr 에 목록을 한 번 요청해 둠 (실패해도 무시)
+          curl -fsS -o /dev/null "https://cdn.jsdelivr.net/gh/${{ github.repository }}@${{ steps.ref.outputs.tag }}/index.json" || true
+
+      - name: Point channel.json
+        run: |
+          printf '{\n  "schema": 1,\n  "ref": "%s"\n}\n' "${{ steps.ref.outputs.tag }}" > channel.json
+          if git diff --quiet -- channel.json; then echo "이미 ${{ steps.ref.outputs.tag }} 를 가리킵니다"; exit 0; fi
+          git add channel.json
+          git commit -m "Release ${{ steps.ref.outputs.tag }}"
+          git push origin HEAD:main
+          echo "### 배포 완료: ${{ steps.ref.outputs.tag }}" >> "$GITHUB_STEP_SUMMARY"
