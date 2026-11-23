@@ -341,7 +341,7 @@ const OCEAN_SCENE = {
       S.whale = { zone: S.zone, p: 0, dur: z.dur * rand(0.9, 1.1), dy: rand(-0.03, 0.04), ph: rand(0, TAU) };
     }
     function bubbles(x, y, n, spread) {
-      for (let i = 0; i < n; i++) S.later.push({ t: i * rand(0.04, 0.12), fn: () => S.bubbles.push({ x: x + rand(-spread, spread), y, r: rand(3, 11), vy: rand(-70, -130), ph: rand(0, TAU), a: 0 }) });
+      for (let i = 0; i < n; i++) S.later.push({ t: i * rand(0.04, 0.12), fn: () => S.bubbles.push({ x: x + rand(-spread, spread), y, r: rand(3, 11), vy: rand(-70, -130), ph: rand(0, TAU), a: 0, age: 0, life: rand(6, 11) }) });
     }
     function bioWave(x, y, speed = 520) {   // 가까운 점부터 차례로 켜짐
       for (const p of S.bio) {
@@ -810,7 +810,13 @@ const OCEAN_SCENE = {
         if (d < 140 && d > 1) { const f = (1 - d / 140) * 60 * dt; p.ox += dx / d * f; p.oy += dy / d * f; }
         p.ox *= 1 - dt * 0.6; p.oy *= 1 - dt * 0.6;
       }
-      S.bubbles = S.bubbles.filter(b => { b.y += b.vy * dt; b.vy *= 1 - dt * 0.15; b.ph += dt * 5; b.x += Math.sin(b.ph) * 18 * dt; b.a = Math.min(1, b.a + dt * 4); return b.y > -30; });
+      // 기포: 큰 것일수록 빠른 일정 속도까지 떠오르고(멈추지 않음), 올라가며 살짝 커지고, 수명이 다하면 서서히 사라짐
+      S.bubbles = S.bubbles.filter(b => {
+        b.age += dt; b.vy += (-(45 + b.r * 6) - b.vy) * Math.min(1, dt * 1.5);
+        b.y += b.vy * dt; b.r *= 1 + dt * 0.03; b.ph += dt * 5; b.x += Math.sin(b.ph) * 18 * dt;
+        b.a = Math.min(1, b.age * 4, (b.life - b.age) / 1.2);
+        return b.age < b.life && b.y > -30;
+      });
       S.silt = S.silt.filter(s => (s.age += dt) < s.life);
       for (const p of S.bio) {
         if (p.fireAt > 0 && S.t >= p.fireAt) { p.glow = Math.max(p.glow, rand(0.6, 1)); p.fireAt = -1; }

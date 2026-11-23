@@ -3,7 +3,7 @@
   "packs": [
     {
       "id": "ocean-abyss",
-      "version": "1.1.0",
+      "version": "1.1.1",
       "type": "scene",
       "sceneApi": 1,
       "title": "바닷속 · 심해",
@@ -60,7 +60,7 @@
         }
       },
       "path": "packs/ocean-abyss",
-      "size": 5026236,
+      "size": 5026574,
       "files": [
         {
           "path": "assets/anglerfish.png",
@@ -115,12 +115,12 @@
         {
           "path": "manifest.json",
           "size": 1432,
-          "sha256": "bd2700055718b32430f9a58585ef68512b00f0c1b226d1c2741df324eb5561d3"
+          "sha256": "33d8d547e7f4925c877484112f27e14ef6beda05fb1ae38c99b3dbbe8789a5fd"
         },
         {
           "path": "scene.js",
-          "size": 73371,
-          "sha256": "8a7d8e0eaca91dfeca7e01d606ed20731648d8292adc2bfe57db3b7531c058f5"
+          "size": 73709,
+          "sha256": "6e6b04819d6160f689903130260b161f908f2af0e77500ed61d5fd27afdd87cc"
         },
         {
           "path": "thumb.jpg",
@@ -131,7 +131,7 @@
     },
     {
       "id": "ocean-reef",
-      "version": "1.1.0",
+      "version": "1.1.1",
       "type": "scene",
       "sceneApi": 1,
       "title": "바닷속 · 해양",
@@ -184,7 +184,7 @@
         }
       },
       "path": "packs/ocean-reef",
-      "size": 2906252,
+      "size": 2906590,
       "files": [
         {
           "path": "assets/deepsea_reef.jpg",
@@ -239,12 +239,12 @@
         {
           "path": "manifest.json",
           "size": 1366,
-          "sha256": "335967e6e7b6d9d8de88e9214cd325aff8cfc6d7f5b875b3e8121c1b493bf660"
+          "sha256": "e95c80eaaffa80ad458f8b554fa6f5eb9d96d662f5893af92430b0bbcce81964"
         },
         {
           "path": "scene.js",
-          "size": 73371,
-          "sha256": "8a7d8e0eaca91dfeca7e01d606ed20731648d8292adc2bfe57db3b7531c058f5"
+          "size": 73709,
+          "sha256": "6e6b04819d6160f689903130260b161f908f2af0e77500ed61d5fd27afdd87cc"
         },
         {
           "path": "thumb.jpg",
@@ -255,7 +255,7 @@
     },
     {
       "id": "ocean-wreck",
-      "version": "1.1.0",
+      "version": "1.1.1",
       "type": "scene",
       "sceneApi": 1,
       "title": "바닷속 · 난파선",
@@ -311,7 +311,7 @@
         }
       },
       "path": "packs/ocean-wreck",
-      "size": 2098932,
+      "size": 2099270,
       "files": [
         {
           "path": "assets/deepsea_wreck.jpg",
@@ -346,12 +346,12 @@
         {
           "path": "manifest.json",
           "size": 1386,
-          "sha256": "3b969a6c613247aa48b10814edfe83f13c4ad1b6f5acebf09380fb6994f1fadb"
+          "sha256": "197435bf39956a3d57c4d22c76197f2bfb5b8a8580a8bc759a56f6edcc59f549"
         },
         {
           "path": "scene.js",
-          "size": 73371,
-          "sha256": "8a7d8e0eaca91dfeca7e01d606ed20731648d8292adc2bfe57db3b7531c058f5"
+          "size": 73709,
+          "sha256": "6e6b04819d6160f689903130260b161f908f2af0e77500ed61d5fd27afdd87cc"
         },
         {
           "path": "thumb.jpg",
