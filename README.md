@@ -69,6 +69,17 @@ window.LiveWallpaperScenes.register({
 
 - 장면은 펫·파티클·위젯 **아래**에 그려집니다. 앱의 전역 `canvas { z-index: 3 }` 규칙을 덮어쓰려면 `#id`로 z-index를 지정하세요.
 - 스타일은 `host.root` 안에 `<style>`로 넣고, 선택자는 장면 고유 id나 class로 한정하세요.
-- manifest 에 `"theme": { "name": "🦑 바닷속 심해 테마", "config": { "colorTheme": "none", "activeCreatures": ["otter"] } }` 를 적으면 스토어에서 처음 설치하거나 '적용'을 누를 때 배경 소스와 함께 그 이름의 테마를 만들어 적용합니다(앱 1.2.0+, 위젯 배치는 그대로). 같은 이름의 테마가 이미 있으면 사용자가 고친 내용을 지키기 위해 적용만 합니다.
+- **배경 레이어와 권장 테마** — 팩은 *배경 레이어*(scene.js 가 그리는 장면 자체)와 *권장 테마*(그 위에 앱의 프로그램 효과를 골라 둔 설정)를 함께 제공합니다. 앱의 정의·규칙은 [앱 README의 '배경 레이어 · 테마 · 장면 팩'](https://github.com/zaruous/myWinDesktop#-배경-레이어--테마--장면-팩)을 따릅니다.
+  ```json
+  "theme": {
+    "name": "🦑 바닷속 심해 테마",
+    "config": { "particleType": "fireflies", "particleCount": 40, "vignette": true, "mouseEffect": "aura_lines",
+                "activeCreatures": ["otter", "pastel_cat"], "petCostume": "auto" }
+  }
+  ```
+  - `config` 키는 앱 테마 설정 이름(대소문자 무시): `colorTheme`, `brightness`, `particleType`/`Count`/`Speed`, `sunbeams`, `vignette`, `fogEffect`, `auroraEffect`, `shootingStars`, `lightningEffect`, `breathingEffect`, `mouseEffect`, `activeCreatures`, `petFleeMode`, `petCostume`, `iconCollision`, `windowCollision` 등. 모르는 키는 무시됩니다.
+  - 배경 소스(`bgMode`·`bgUrl`)와 위젯 배치(`widgets` 등)는 바꿀 수 없습니다. 적지 않은 항목은 사용자의 현재 설정을 따릅니다.
+  - 권장 테마에는 장면과 겹치는 효과는 끄고, 장면을 살리는 **프로그램 효과를 골라 넣습니다** (예: 해양 → 기포 파티클 + 물결 마우스, 난파선 → 안개 + 비네트).
+  - 앱 동작(1.2.0+): 스토어에서 처음 설치하거나 '적용'하면 배경과 이 테마를 함께 적용하고, 설치된 팩마다 이 테마가 테마 목록에 들어갑니다. 같은 이름의 테마가 있으면 덮어쓰지 않으며, 사용자는 고쳐 저장할 수 있고 **↺ 기본값으로** 버튼으로 지금 팩의 `theme` 값으로 되돌릴 수 있습니다. `theme` 이 없으면 배경만 바꾼 '아이콘 + 팩 이름' 테마를 만듭니다.
 - manifest 에 `"petCostume": "scuba"` 처럼 적으면 이 장면이 켜져 있는 동안 펫에게 그 분장을 씌웁니다(사용자 펫 분장 설정이 '🎭 장면에 맞춤'일 때만, 앱 1.2.0+. '분장 없음'이면 씌우지 않음). 값: `santa`·`rudolph`·`mix`·`scuba`.
-- 장면 좌표(`host.w×host.h`)는 화면 배율과 무관한 설계 해상도입니다. 캔버스에 devicePixelRatio를 곱하지 마세요(고DPI에서 2배 이상 무거워집니다).
+- `host.w×host.h` 는 화면(모니터) 해상도입니다. **16:9 가 아닐 수 있으니**(21:9·16:10·세로 모니터·여러 모니터 이어 붙이기) 캔버스를 CSS 로 늘리지 말고, 16:9 설계 좌표를 한 번의 변환(가로·세로 같은 배율)으로 화면에 맞추세요. 바닥이 중요한 장면은 아래쪽에 붙이고 위쪽을 잘라 냅니다(예: `ocean-*` 팩의 `updateView`/`baseT`). 캔버스에 devicePixelRatio를 곱하지 마세요(고DPI에서 2배 이상 무거워집니다).

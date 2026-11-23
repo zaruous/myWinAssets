@@ -23,7 +23,8 @@
 <script>
   const id = new URLSearchParams(location.search).get('pack') || 'fantasy-skies';
   const base = `../packs/${id}/`;
-  const W = 1920, H = 1080;                    // 앱의 설계 해상도와 같게
+  let W = innerWidth, H = innerHeight;         // 앱처럼 화면(창) 해상도 그대로 — 16:9 가 아닌 화면도 창 크기를 바꿔 확인
+  addEventListener('resize', () => { W = innerWidth; H = innerHeight; });
   const mouse = { x: W / 2, y: H / 2, normX: 0.5, normY: 0.5 };
   const defs = {};
   const pet = { x: 0.46, dir: 1, wait: 0 };

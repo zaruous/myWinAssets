@@ -14,9 +14,8 @@ window.LiveWallpaperScenes.register({
     root.style.background = '#0a0c12';
     root.innerHTML = `
       <style>
-        /* 화면 비율이 16:9 가 아니어도 그림을 늘리지 않고 16:9 를 유지한 채 꽉 채움 (넘치는 가장자리는 잘림) */
-        #rw-canvas { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: max(100%, 177.78vh); height: max(100%, 56.25vw);
-          display: block; z-index: 0; pointer-events: none; }
+        /* 캔버스는 화면 해상도 그대로(host.w×host.h) — CSS 로 늘리지 않음 (16:9 가 아닌 화면에서 빗방울이 찌그러지지 않게) */
+        #rw-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; z-index: 0; pointer-events: none; }
       </style>
       <canvas id="rw-canvas"></canvas>`;
     const cv = root.querySelector('#rw-canvas'), c = cv.getContext('2d');
@@ -87,7 +86,10 @@ window.LiveWallpaperScenes.register({
       L.sharp = mk(SW, SH);
       const sg = L.sharp.getContext('2d');
       if (filterCss !== 'none') sg.filter = filterCss;
-      sg.drawImage(outside, 0, 0, SW, SH);
+      // 창밖 사진은 원래 비율 그대로 꽉 채움(넘치는 부분은 가운데 기준으로 잘림) — 불빛·호수 좌표는 이 사각형 기준
+      const ps = Math.max(SW / outside.naturalWidth, SH / outside.naturalHeight);
+      L.pw = outside.naturalWidth * ps; L.ph = outside.naturalHeight * ps; L.px = (SW - L.pw) / 2; L.py = (SH - L.ph) / 2;
+      sg.drawImage(outside, L.px, L.py, L.pw, L.ph);
       sg.filter = 'none'; sg.fillStyle = 'rgba(10,20,40,0.1)'; sg.fillRect(0, 0, SW, SH);
       L.small1 = mk(w / 4, h / 4); L.small2 = mk(w / 12, h / 12); L.up = mk(w / 4, h / 4);
       L.lens = mk(w, h); L.mask = mk(w, h);   // 렌즈 방울: 굴절 그림을 모아 그린 뒤 방울 모양으로 한 번에 잘라냄
@@ -125,7 +127,7 @@ window.LiveWallpaperScenes.register({
     for (let i = 0; i < 9; i++) S.mist.push({ u: rand(-0.2, 1.2), v: rand(0.42, 0.66), vu: rand(0.004, 0.012), sx: rand(0.25, 0.45), sy: rand(0.05, 0.09), a: rand(0.05, 0.1) });
 
     // 창밖 사진 좌표 → 화면 (시차 포함)
-    const outX = u => u * SW - PAD * w + S.par.x, outY = v => v * SH - PAD * h + S.par.y;
+    const outX = u => L.px + u * L.pw - PAD * w + S.par.x, outY = v => L.py + v * L.ph - PAD * h + S.par.y;
 
     function wipeAt(x, y, r) {
       const g = L.wipe.getContext('2d');

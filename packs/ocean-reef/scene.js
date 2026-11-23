@@ -15,13 +15,28 @@ const OCEAN_SCENE = {
     root.style.background = '#04121e';
     root.innerHTML = `
       <style>
-        #ds-canvas { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: max(100%, 177.78vh); height: max(100%, 56.25vw);
-          display: block; z-index: 0; pointer-events: none; }
+        #ds-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; z-index: 0; pointer-events: none; }
       </style>
       <canvas id="ds-canvas"></canvas>`;
     const cv = root.querySelector('#ds-canvas'), c = cv.getContext('2d');
     const mouse = host.mouse;
-    let w = host.w, h = host.h;
+    // 장면은 16:9 설계 좌표(DW×DH)로 그리고, 캔버스는 모니터 해상도(host.w×host.h) 그대로 씀.
+    // 한 번의 변환(가로·세로 같은 배율)으로 화면을 꽉 채우며 찌그러지지 않음. 비율이 다르면 넘치는 부분은
+    // 위쪽(물) 또는 좌우에서 잘리고, 바닥(해저·펫이 걷는 자리)은 항상 화면 맨 아래에 붙음.
+    const DW = 1920, DH = 1080;
+    const w = DW, h = DH;
+    const V = { s: 1, ox: 0, oy: 0, top: 0, left: 0, right: DW, sw: DW, sh: DH };
+    function updateView() {
+      const sw = Math.max(1, Math.round(host.w)), sh = Math.max(1, Math.round(host.h));
+      if (sw === V.sw && sh === V.sh && cv.width === sw) return;
+      V.sw = sw; V.sh = sh; cv.width = sw; cv.height = sh;
+      V.s = Math.max(sw / DW, sh / DH);
+      V.ox = (sw - DW * V.s) / 2; V.oy = sh - DH * V.s;
+      V.top = Math.max(0, -V.oy / V.s); V.left = Math.max(0, -V.ox / V.s); V.right = Math.min(DW, (sw - V.ox) / V.s);
+    }
+    const baseT = (x = 0, y = 0) => c.setTransform(V.s, 0, 0, V.s, V.ox + x * V.s, V.oy + y * V.s);
+    const vy = f => V.top + f * (DH - V.top);            // 세로 비율(0~1) → 화면에 보이는 범위 안의 설계 좌표
+    const toScene = (x, y) => [(x - V.ox) / V.s, (y - V.oy) / V.s];   // 화면(캔버스) 픽셀 → 설계 좌표
 
     const TAU = Math.PI * 2;
     const rand = (a, b) => a + Math.random() * (b - a);
@@ -180,7 +195,7 @@ const OCEAN_SCENE = {
       return { body: tintLayer(body, z), fins };
     }
     function rebuild() {
-      w = host.w; h = host.h; cv.width = Math.round(w); cv.height = Math.round(h);
+      updateView();
       // 배경: 색감 필터를 한 번 구워 둠
       L.bg = ZONES.map((z, zi) => {
         if (!ZON(zi)) return null;
@@ -305,7 +320,7 @@ const OCEAN_SCENE = {
           L.edge.push({ x: p[0], y: p[1], s: 1 - p[0] / W, ph: rand(0, TAU), r: rand(0.6, 1.3) });
         }
       } catch (e) { /* file:// 등 픽셀을 못 읽으면 발광 윤곽 없이 */ }
-      built = `${w}x${h}|${filterCss}`;
+      built = `${filterCss}`;
       if (S.fishInit) { S.fishInit = false; for (let i = 0; i < S.fishN; i++) S.fish.push(newFish(S.zone, true)); }
     }
 
@@ -327,7 +342,7 @@ const OCEAN_SCENE = {
     const zoneW = i => i === S.zone ? smooth(S.fadeT / FADE) : (i === S.prev ? 1 - smooth(S.fadeT / FADE) : 0);
     const mouseXY = () => {
       const r = cv.getBoundingClientRect();
-      return [(mouse.normX * innerWidth - r.left) / r.width * w, (mouse.normY * innerHeight - r.top) / r.height * h];
+      return toScene((mouse.normX * innerWidth - r.left) / r.width * V.sw, (mouse.normY * innerHeight - r.top) / r.height * V.sh);
     };
 
     function gotoZone(i) {
@@ -359,7 +374,7 @@ const OCEAN_SCENE = {
       if (name === 'squid' && z === 'abyss' && !S.squid) S.squid = passBy('squid', SQUID, SQUID.w * 0.6);
       if (name === 'angler' && z === 'abyss' && !S.angler) { S.angler = { t: 0, dur: rand(14, 18) }; S.lure.retarget = 0; }
       if (name === 'bubbles') for (let k = 0; k < 4; k++) bubbles(rand(0.15, 0.85) * w, h * rand(0.86, 0.95), 14, 20);
-      if (name === 'glow') bioWave(rand(0.3, 0.7) * w, rand(0.4, 0.7) * h, z === 'abyss' ? 520 : 800);
+      if (name === 'glow') bioWave(rand(0.3, 0.7) * w, vy(rand(0.4, 0.7)), z === 'abyss' ? 520 : 800);
     }
 
     // ── 고래: 세로 띠마다 위아래로 어긋나게 (꼬리일수록 크게) — 띠 폭 6px, 이웃 띠 차이는 1px 미만이라 이음매가 안 보임
@@ -389,13 +404,13 @@ const OCEAN_SCENE = {
       const F = FISH[zi], dir = Math.random() < 0.5 ? 1 : -1, z = rand(0.6, 1);
       const len = rand(F.len[0], F.len[1]) * z;
       return { zone: zi, kind: F.kinds[Math.floor(Math.random() * F.kinds.length)], len, z,
-        x: onScreen ? rand(0.08, 0.92) * w : (dir > 0 ? -len : w + len), y: rand(FISH_Y[0], FISH_Y[1]) * h,
-        dir, face: dir, v: rand(35, 80) * (0.6 + z * 0.5), boost: 0, ph: rand(0, TAU), ty: rand(FISH_Y[0], FISH_Y[1]) * h, retarget: rand(3, 8), turnT: rand(8, 20), leaving: false };
+        x: onScreen ? rand(0.08, 0.92) * w : (dir > 0 ? -len : w + len), y: vy(rand(FISH_Y[0], FISH_Y[1])),
+        dir, face: dir, v: rand(35, 80) * (0.6 + z * 0.5), boost: 0, ph: rand(0, TAU), ty: vy(rand(FISH_Y[0], FISH_Y[1])), retarget: rand(3, 8), turnT: rand(8, 20), leaving: false };
     }
     function scareFish(x, y, R, k) {
       for (const f of S.fish) {
         const d = Math.hypot(f.x - x, f.y - y);
-        if (d < R) { f.dir = f.x >= x ? 1 : -1; f.boost = Math.max(f.boost, k * (1 - d / R)); f.ty = Math.max(FISH_Y[0] * h, Math.min(FISH_Y[1] * h, f.y + (f.y - y) * 0.8)); }
+        if (d < R) { f.dir = f.x >= x ? 1 : -1; f.boost = Math.max(f.boost, k * (1 - d / R)); f.ty = Math.max(vy(FISH_Y[0]), Math.min(vy(FISH_Y[1]), f.y + (f.y - y) * 0.8)); }
       }
     }
     function updateFish(dt, mx, my) {
@@ -410,7 +425,7 @@ const OCEAN_SCENE = {
         const sp = f.v * (1 + f.boost * 1.6);
         f.face += (f.dir - f.face) * Math.min(1, dt * 5);           // 뒤돌 때 좌우로 납작해졌다 펴짐
         f.x += f.face * sp * dt;
-        f.retarget -= dt; if (f.retarget <= 0) { f.retarget = rand(3, 8); f.ty = rand(FISH_Y[0], FISH_Y[1]) * h; }
+        f.retarget -= dt; if (f.retarget <= 0) { f.retarget = rand(3, 8); f.ty = vy(rand(FISH_Y[0], FISH_Y[1])); }
         f.y += (f.ty - f.y) * dt * 0.25 + Math.sin(f.ph * 0.15) * 6 * dt;
         f.ph += dt * (5 + sp / 18);
         if (!f.leaving) {
@@ -445,7 +460,7 @@ const OCEAN_SCENE = {
     }
     function newJelly(fromBottom) {
       const kinds = Object.keys(JELLY), kind = kinds[Math.floor(Math.random() * kinds.length)], J = JELLY[kind];
-      return { kind, hgt: rand(J.h[0], J.h[1]), x: rand(0.08, 0.92) * w, y: fromBottom ? h + 60 : rand(0.2, 0.75) * h, vx: rand(-6, 6), ph: rand(0, TAU), rate: rand(1.5, 2.1) };
+      return { kind, hgt: rand(J.h[0], J.h[1]), x: rand(0.08, 0.92) * w, y: fromBottom ? h + 60 : vy(rand(0.2, 0.75)), vx: rand(-6, 6), ph: rand(0, TAU), rate: rand(1.5, 2.1) };
     }
     // 바다거북: 앞지느러미로 크게 물을 저을 때마다 앞으로 밀려 나가며 살짝 떠오름
     function updateTurtle(dt) {
@@ -453,7 +468,7 @@ const OCEAN_SCENE = {
       S.turtleT -= dt;
       if (inReef && !S.turtle && S.turtleT <= 0 && (!S.whale || S.whale.p > 0.7)) {
         const d = Math.random() < 0.5 ? 1 : -1;
-        S.turtle = { d, x: d > 0 ? -TURTLE.w * 0.7 : w + TURTLE.w * 0.7, y: rand(TURTLE.y[0], TURTLE.y[1]) * h, vy: rand(-6, 6), ph: 0, sp: (w + TURTLE.w * 1.4) / rand(TURTLE.dur[0], TURTLE.dur[1]), shy: 0 };
+        S.turtle = { d, x: d > 0 ? -TURTLE.w * 0.7 : w + TURTLE.w * 0.7, y: vy(rand(TURTLE.y[0], TURTLE.y[1])), vy: rand(-6, 6), ph: 0, sp: (w + TURTLE.w * 1.4) / rand(TURTLE.dur[0], TURTLE.dur[1]), shy: 0 };
       }
       const tu = S.turtle; if (!tu) return;
       tu.ph += dt * 1.7;
@@ -489,11 +504,11 @@ const OCEAN_SCENE = {
       if (S.zone !== cf.zone || S.schools[si]) return;
       const dir = Math.random() < 0.5 ? 1 : -1, x0 = dir > 0 ? -0.2 * w : 1.2 * w, fish = [];
       for (let i = 0; i < cf.n; i++) {
-        const f = newSchoolFish(cf, x0 - dir * rand(0, 320), cf.ball[1] * h + rand(-40, 40));
+        const f = newSchoolFish(cf, x0 - dir * rand(0, 320), vy(cf.ball[1]) + rand(-40, 40));
         f.orb = cf.ball[2] * Math.pow(rand(0.02, 1), 0.65); f.vx = dir * 200; f.yaw = dir > 0 ? 0 : Math.PI; fish.push(f);
       }
       fish.sort((a, b) => a.z - b.z);
-      S.schools[si] = { fish, mode: 'ball', dir, phase: 'in', t: 0, cx: x0, cy: cf.ball[1] * h, scatter: 0 };
+      S.schools[si] = { fish, mode: 'ball', dir, phase: 'in', t: 0, cx: x0, cy: vy(cf.ball[1]), scatter: 0 };
     }
     function obstacles() {   // 무리를 갈라놓는 큰 생물 (거북·고래)
       const o = [];
@@ -518,7 +533,7 @@ const OCEAN_SCENE = {
         if (here && !S.schools[si] && cf.mode === 'school') {
           const fish = [], from = Math.random() < 0.5 ? -1 : 1;
           for (let i = 0; i < cf.n; i++) {
-            const a = rand(0, TAU), r = Math.sqrt(Math.random()), f = newSchoolFish(cf, from > 0 ? w + 80 + rand(0, 200) : -80 - rand(0, 200), cf.cy * h + rand(-60, 60));
+            const a = rand(0, TAU), r = Math.sqrt(Math.random()), f = newSchoolFish(cf, from > 0 ? w + 80 + rand(0, 200) : -80 - rand(0, 200), vy(cf.cy) + rand(-60, 60));
             f.hx = Math.cos(a) * r * cf.spread[0]; f.hy = Math.sin(a) * r * cf.spread[1]; f.vx = -120 * from; fish.push(f);
           }
           fish.sort((a, b) => a.z - b.z);
@@ -530,12 +545,12 @@ const OCEAN_SCENE = {
         let tx = 0, ty = 0;
         if (g.mode === 'school') {
           g.a += dt * 0.11;
-          tx = (cf.cx + Math.cos(g.a) * cf.rx + Math.sin(g.a * 2.3) * 0.04) * w; ty = (cf.cy + Math.sin(g.a * 1.3) * cf.ry) * h;
+          tx = (cf.cx + Math.cos(g.a) * cf.rx + Math.sin(g.a * 2.3) * 0.04) * w; ty = vy(cf.cy + Math.sin(g.a * 1.3) * cf.ry);
         } else if (g.mode === 'ball') {
           g.t += dt;
           const bx = cf.ball[0] * w;
           if (g.phase === 'in') { g.cx += (bx - g.cx) * Math.min(1, dt * 0.45); if (Math.abs(g.cx - bx) < 20) { g.phase = 'swirl'; g.t = 0; } }
-          else if (g.phase === 'swirl') { g.cx = bx + Math.sin(g.t * 0.2) * 60; g.cy = cf.ball[1] * h + Math.sin(g.t * 0.27) * 25; if (g.t > cf.swirl || !here) { g.phase = 'out'; g.t = 0; } }
+          else if (g.phase === 'swirl') { g.cx = bx + Math.sin(g.t * 0.2) * 60; g.cy = vy(cf.ball[1]) + Math.sin(g.t * 0.27) * 25; if (g.t > cf.swirl || !here) { g.phase = 'out'; g.t = 0; } }
           else { g.cx += g.dir * Math.min(260, 60 + g.t * 90) * dt; }
         } else {
           g.dive = Math.max(0, g.dive - dt * 0.25);
@@ -624,13 +639,13 @@ const OCEAN_SCENE = {
         let cyw = Math.cos(f.yaw); if (Math.abs(cyw) < 0.1) cyw = cyw < 0 ? -0.1 : 0.1;
         const pitch = Math.max(-0.55, Math.min(0.55, Math.atan2(f.vy, Math.max(Math.abs(f.vx), 25)))) * Math.sign(cyw), s = f.sz * sc;
         c.globalAlpha = k * cf.alpha * (0.55 + 0.45 * f.z);
-        c.setTransform(1, 0, 0, 1, f.x, f.y); c.rotate(pitch); c.scale(cyw * s, s);
+        baseT(f.x, f.y); c.rotate(pitch); c.scale(cyw * s, s);
         c.drawImage(m, SP, 0, W - SP, H, -W / 2 + SP, -H / 2, W - SP, H);
         c.translate(-W / 2 + SP, 0); c.rotate(0.26 * Math.sin(f.ph));
         const q = 1 - 0.22 * Math.abs(Math.sin(f.ph));
         c.drawImage(m, 0, 0, SP + 1, H, -SP * q, -H / 2, (SP + 1) * q, H);
       }
-      c.setTransform(1, 0, 0, 1, 0, 0);
+      baseT();
       if (cf.flash > 0) {   // 은빛 번쩍임: 몸을 돌리는 순간 + (정어리 공) 궤도를 따라 물결처럼
         c.globalCompositeOperation = 'lighter';
         for (const f of g.fish) {
@@ -655,7 +670,7 @@ const OCEAN_SCENE = {
     // 큰 생물 한 마리: 화면 한쪽에서 들어와 반대쪽으로 천천히 지나감
     function passBy(key, cf, span) {
       const d = Math.random() < 0.5 ? 1 : -1;
-      return { d, x: d > 0 ? -span : w + span, y: rand(cf.y[0], cf.y[1]) * h, sp: (w + span * 2) / rand(cf.dur[0], cf.dur[1]), ph: rand(0, TAU), t: 0, bio: 0 };
+      return { d, x: d > 0 ? -span : w + span, y: vy(rand(cf.y[0], cf.y[1])), sp: (w + span * 2) / rand(cf.dur[0], cf.dur[1]), ph: rand(0, TAU), t: 0, bio: 0 };
     }
     function updateBig(dt) {
       const z = S.zone;
@@ -727,7 +742,7 @@ const OCEAN_SCENE = {
       S.jelly = S.jelly.filter(j => j.y > -j.hgt * 1.2);
       // 빗해파리: 가끔 옆으로 천천히 흘러감
       S.combT -= dt;
-      if (inAbyss && !S.comb && S.combT <= 0) { const d = Math.random() < 0.5 ? 1 : -1; S.comb = { x: d > 0 ? -220 : w + 220, y: rand(0.2, 0.5) * h, d, ph: 0, sz: rand(170, 230) }; }
+      if (inAbyss && !S.comb && S.combT <= 0) { const d = Math.random() < 0.5 ? 1 : -1; S.comb = { x: d > 0 ? -220 : w + 220, y: vy(rand(0.2, 0.5)), d, ph: 0, sz: rand(170, 230) }; }
       if (S.comb) { S.comb.x += S.comb.d * 28 * dt; S.comb.ph += dt; S.comb.y += Math.sin(S.comb.ph * 0.4) * 5 * dt; if (S.comb.x < -300 || S.comb.x > w + 300) { S.comb = null; S.combT = rand(40, 70); } }
       // 아귀: 미끼 빛 뒤에서 가끔 얼굴을 드러냈다 다시 어둠 속으로
       S.anglerT -= dt;
@@ -798,7 +813,7 @@ const OCEAN_SCENE = {
         S.eventT = rand(45, 90);
         const z = ZONES[S.zone].id;
         if (z === 'reef') bubbles(rand(0.25, 0.75) * w, h * 0.8, 10, 6);
-        else bioWave(rand(0.2, 0.8) * w, rand(0.3, 0.8) * h, z === 'abyss' ? 480 : 900);
+        else bioWave(rand(0.2, 0.8) * w, vy(rand(0.3, 0.8)), z === 'abyss' ? 480 : 900);
       }
       S.later = S.later.filter(q => { q.t -= dt; if (q.t <= 0) { q.fn(); return false; } return true; });
       // 부유 입자 (마우스 근처는 살짝 밀려났다 돌아옴)
@@ -834,7 +849,7 @@ const OCEAN_SCENE = {
 
     // 펫 발걸음 반응: 산호초=멈추면 기포, 난파선=걸을 때 모래먼지, 심해=지나온 자리가 한 박자 늦게 켜짐
     function petReact(dt) {
-      const list = host.pets?.() || [];
+      const list = (host.pets?.() || []).map(p => { const [x, y] = toScene(p.x, p.y); return { ...p, x, y }; });
       const z = ZONES[S.zone].id;
       list.forEach((pt, i) => {
         let st = S.pets.get(i);
@@ -891,7 +906,7 @@ const OCEAN_SCENE = {
     function whalePos(zi) {
       const wh = S.whale, img = L.whale[zi].body, z = ZONES[zi];
       const p = wh.p, x = -img.width - 40 + (w + img.width + 80) * p;
-      const y = (z.wy + wh.dy) * h + Math.sin(p * Math.PI) * -0.02 * h + Math.sin(S.t * 0.4) * 6;
+      const y = vy(z.wy + wh.dy) + Math.sin(p * Math.PI) * -0.02 * h + Math.sin(S.t * 0.4) * 6;
       return [x, y, img];
     }
     function shadowRect() {   // 산호초 고래 그림자: 햇빛이 왼쪽 위에서 오므로 고래보다 오른쪽 아래 모래 위
@@ -997,7 +1012,9 @@ const OCEAN_SCENE = {
 
     function frame() {
       if (!ready()) { c.fillStyle = '#04121e'; c.fillRect(0, 0, w, h); return; }
-      if (built !== `${host.w}x${host.h}|${filterCss}`) rebuild();
+      updateView();
+      if (built !== `${filterCss}`) rebuild();
+      baseT();
       const now = performance.now(), dt = Math.min(0.05, (now - S.last) / 1000);
       S.last = now; S.t += dt; S.causticT -= dt;
       update(dt);

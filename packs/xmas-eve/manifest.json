@@ -1,21 +1,66 @@
 {
   "$schema": "../../schema/manifest.schema.json",
   "id": "xmas-eve",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "type": "scene",
   "sceneApi": 1,
   "title": "크리스마스 이브 썰매 비행",
   "icon": "🎄",
   "description": "썰매에 앉은 1인칭 시점으로 눈 내리는 산골 마을·오로라 호수·보름달 마을 위를 날며 창문마다 선물을 배달합니다. 마우스로 방향을 틀고 클릭하면 루돌프 부스트.",
   "author": "LiveWallpaper",
-  "tags": ["christmas", "winter", "snow", "night"],
+  "tags": [
+    "christmas",
+    "winter",
+    "snow",
+    "night"
+  ],
   "thumb": "thumb.jpg",
   "entry": "scene.js",
   "actions": [
-    { "id": "gift", "label": "🎁 선물 투하" },
-    { "id": "boost", "label": "🔴 루돌프 부스트" },
-    { "id": "village", "label": "🏘️ 산골 마을" },
-    { "id": "aurora", "label": "🌌 오로라 호수" },
-    { "id": "moon", "label": "🌕 보름달 마을" }
-  ]
+    {
+      "id": "gift",
+      "label": "🎁 선물 투하"
+    },
+    {
+      "id": "boost",
+      "label": "🔴 루돌프 부스트"
+    },
+    {
+      "id": "village",
+      "label": "🏘️ 산골 마을"
+    },
+    {
+      "id": "aurora",
+      "label": "🌌 오로라 호수"
+    },
+    {
+      "id": "moon",
+      "label": "🌕 보름달 마을"
+    }
+  ],
+  "theme": {
+    "name": "🎄 크리스마스 이브 썰매 비행",
+    "config": {
+      "colorTheme": "none",
+      "particleType": "snow",
+      "particleCount": 40,
+      "particleSpeed": 0.8,
+      "sunbeams": false,
+      "vignette": false,
+      "fogEffect": false,
+      "auroraEffect": false,
+      "lightningEffect": false,
+      "shootingStars": false,
+      "breathingEffect": false,
+      "mouseEffect": "none",
+      "petFleeMode": "off",
+      "petCostume": "mix",
+      "activeCreatures": [
+        "pastel_cat",
+        "dog_retriever",
+        "dog_chihuahua",
+        "otter"
+      ]
+    }
+  }
 }

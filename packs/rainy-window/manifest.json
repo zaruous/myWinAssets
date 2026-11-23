@@ -1,7 +1,7 @@
 {
   "$schema": "../../schema/manifest.schema.json",
   "id": "rainy-window",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "type": "scene",
   "sceneApi": 1,
   "title": "비 오는 창가",
@@ -37,5 +37,22 @@
       "id": "spirits",
       "label": "✨ 정령 불빛"
     }
-  ]
+  ],
+  "theme": {
+    "name": "🌧️ 비 오는 창가",
+    "config": {
+      "colorTheme": "none",
+      "particleType": "none",
+      "sunbeams": false,
+      "vignette": true,
+      "fogEffect": false,
+      "auroraEffect": false,
+      "lightningEffect": false,
+      "shootingStars": false,
+      "breathingEffect": false,
+      "mouseEffect": "none",
+      "petFleeMode": "off",
+      "petCostume": "auto"
+    }
+  }
 }

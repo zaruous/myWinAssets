@@ -3,7 +3,7 @@
   "packs": [
     {
       "id": "ocean-abyss",
-      "version": "1.1.1",
+      "version": "1.1.2",
       "type": "scene",
       "sceneApi": 1,
       "title": "바닷속 · 심해",
@@ -41,17 +41,19 @@
         "name": "🦑 바닷속 심해 테마",
         "config": {
           "colorTheme": "none",
-          "particleType": "none",
-          "vignette": false,
           "sunbeams": false,
           "auroraEffect": false,
-          "fogEffect": false,
           "lightningEffect": false,
           "shootingStars": false,
           "breathingEffect": false,
-          "mouseEffect": "none",
           "petFleeMode": "off",
           "petCostume": "auto",
+          "particleType": "fireflies",
+          "particleCount": 40,
+          "particleSpeed": 0.4,
+          "fogEffect": false,
+          "vignette": true,
+          "mouseEffect": "aura_lines",
           "activeCreatures": [
             "otter",
             "pastel_cat",
@@ -60,7 +62,7 @@
         }
       },
       "path": "packs/ocean-abyss",
-      "size": 5026574,
+      "size": 5027845,
       "files": [
         {
           "path": "assets/anglerfish.png",
@@ -114,13 +116,13 @@
         },
         {
           "path": "manifest.json",
-          "size": 1432,
-          "sha256": "33d8d547e7f4925c877484112f27e14ef6beda05fb1ae38c99b3dbbe8789a5fd"
+          "size": 1497,
+          "sha256": "d53b8f32970bac7ca4909d5f9429a25c11b5cb46909952e358982f07acaab7d0"
         },
         {
           "path": "scene.js",
-          "size": 73709,
-          "sha256": "6e6b04819d6160f689903130260b161f908f2af0e77500ed61d5fd27afdd87cc"
+          "size": 74915,
+          "sha256": "f8669fdd88e77971f59f4f0119425db691d42c3bfd4074382429f0b1d69cec17"
         },
         {
           "path": "thumb.jpg",
@@ -131,7 +133,7 @@
     },
     {
       "id": "ocean-reef",
-      "version": "1.1.1",
+      "version": "1.1.2",
       "type": "scene",
       "sceneApi": 1,
       "title": "바닷속 · 해양",
@@ -165,17 +167,19 @@
         "name": "🐠 바닷속 해양 테마",
         "config": {
           "colorTheme": "none",
-          "particleType": "none",
-          "vignette": false,
           "sunbeams": false,
           "auroraEffect": false,
-          "fogEffect": false,
           "lightningEffect": false,
           "shootingStars": false,
           "breathingEffect": false,
-          "mouseEffect": "none",
           "petFleeMode": "off",
           "petCostume": "auto",
+          "particleType": "bubbles",
+          "particleCount": 26,
+          "particleSpeed": 0.55,
+          "fogEffect": false,
+          "vignette": false,
+          "mouseEffect": "ripple",
           "activeCreatures": [
             "otter",
             "pastel_cat",
@@ -184,7 +188,7 @@
         }
       },
       "path": "packs/ocean-reef",
-      "size": 2906590,
+      "size": 2907857,
       "files": [
         {
           "path": "assets/deepsea_reef.jpg",
@@ -238,13 +242,13 @@
         },
         {
           "path": "manifest.json",
-          "size": 1366,
-          "sha256": "e95c80eaaffa80ad458f8b554fa6f5eb9d96d662f5893af92430b0bbcce81964"
+          "size": 1427,
+          "sha256": "e6c8f5b4a6da58eaceb16710d9739f889d2a4d5fd8ca9967b3c467ab63eb4448"
         },
         {
           "path": "scene.js",
-          "size": 73709,
-          "sha256": "6e6b04819d6160f689903130260b161f908f2af0e77500ed61d5fd27afdd87cc"
+          "size": 74915,
+          "sha256": "f8669fdd88e77971f59f4f0119425db691d42c3bfd4074382429f0b1d69cec17"
         },
         {
           "path": "thumb.jpg",
@@ -255,7 +259,7 @@
     },
     {
       "id": "ocean-wreck",
-      "version": "1.1.1",
+      "version": "1.1.2",
       "type": "scene",
       "sceneApi": 1,
       "title": "바닷속 · 난파선",
@@ -292,17 +296,19 @@
         "name": "🚢 바닷속 난파선 테마",
         "config": {
           "colorTheme": "none",
-          "particleType": "none",
-          "vignette": false,
           "sunbeams": false,
           "auroraEffect": false,
-          "fogEffect": false,
           "lightningEffect": false,
           "shootingStars": false,
           "breathingEffect": false,
-          "mouseEffect": "none",
           "petFleeMode": "off",
           "petCostume": "auto",
+          "particleType": "bubbles",
+          "particleCount": 16,
+          "particleSpeed": 0.45,
+          "fogEffect": true,
+          "vignette": true,
+          "mouseEffect": "ripple",
           "activeCreatures": [
             "otter",
             "dog_retriever",
@@ -311,7 +317,7 @@
         }
       },
       "path": "packs/ocean-wreck",
-      "size": 2099270,
+      "size": 2100535,
       "files": [
         {
           "path": "assets/deepsea_wreck.jpg",
@@ -345,13 +351,13 @@
         },
         {
           "path": "manifest.json",
-          "size": 1386,
-          "sha256": "197435bf39956a3d57c4d22c76197f2bfb5b8a8580a8bc759a56f6edcc59f549"
+          "size": 1445,
+          "sha256": "4effaa3e786ecbd43a06a3089129c2c0b37813ead56aab9184cdcc4e967b1d27"
         },
         {
           "path": "scene.js",
-          "size": 73709,
-          "sha256": "6e6b04819d6160f689903130260b161f908f2af0e77500ed61d5fd27afdd87cc"
+          "size": 74915,
+          "sha256": "f8669fdd88e77971f59f4f0119425db691d42c3bfd4074382429f0b1d69cec17"
         },
         {
           "path": "thumb.jpg",
@@ -362,7 +368,7 @@
     },
     {
       "id": "rainy-window",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "type": "scene",
       "sceneApi": 1,
       "title": "비 오는 창가",
@@ -399,8 +405,25 @@
           "label": "✨ 정령 불빛"
         }
       ],
+      "theme": {
+        "name": "🌧️ 비 오는 창가",
+        "config": {
+          "colorTheme": "none",
+          "particleType": "none",
+          "sunbeams": false,
+          "vignette": true,
+          "fogEffect": false,
+          "auroraEffect": false,
+          "lightningEffect": false,
+          "shootingStars": false,
+          "breathingEffect": false,
+          "mouseEffect": "none",
+          "petFleeMode": "off",
+          "petCostume": "auto"
+        }
+      },
       "path": "packs/rainy-window",
-      "size": 481072,
+      "size": 481821,
       "files": [
         {
           "path": "assets/outside_view.jpg",
@@ -409,13 +432,13 @@
         },
         {
           "path": "manifest.json",
-          "size": 1065,
-          "sha256": "79abc56a6ba521d692e45880a2aeb78399ced860471451fd3984b06ccc7abfae"
+          "size": 1486,
+          "sha256": "6fd59e8664d7a78d6455cedd236935caba936ad48a242e7cde460750ccd23d0c"
         },
         {
           "path": "scene.js",
-          "size": 25291,
-          "sha256": "e8d9916feec739b175719b3ee232f9105eb63d41db5533bc8ff697bf92bde26e"
+          "size": 25619,
+          "sha256": "cdb920c9391c02fa5002dfb1f5137b6881ecbb8d0d1c7e36546a7d14e6f3d4bd"
         },
         {
           "path": "thumb.jpg",
@@ -426,7 +449,7 @@
     },
     {
       "id": "xmas-eve",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "type": "scene",
       "sceneApi": 1,
       "title": "크리스마스 이브 썰매 비행",
@@ -463,8 +486,33 @@
           "label": "🌕 보름달 마을"
         }
       ],
+      "theme": {
+        "name": "🎄 크리스마스 이브 썰매 비행",
+        "config": {
+          "colorTheme": "none",
+          "particleType": "snow",
+          "particleCount": 40,
+          "particleSpeed": 0.8,
+          "sunbeams": false,
+          "vignette": false,
+          "fogEffect": false,
+          "auroraEffect": false,
+          "lightningEffect": false,
+          "shootingStars": false,
+          "breathingEffect": false,
+          "mouseEffect": "none",
+          "petFleeMode": "off",
+          "petCostume": "mix",
+          "activeCreatures": [
+            "pastel_cat",
+            "dog_retriever",
+            "dog_chihuahua",
+            "otter"
+          ]
+        }
+      },
       "path": "packs/xmas-eve",
-      "size": 2232833,
+      "size": 2233549,
       "files": [
         {
           "path": "assets/xmas_aurora.jpg",
@@ -498,8 +546,8 @@
         },
         {
           "path": "manifest.json",
-          "size": 873,
-          "sha256": "07652a299d37a3eca70d5d06465438eb4db7034422000e6643f0486e5f5b7e1e"
+          "size": 1589,
+          "sha256": "cc80b1e8ebb361479bacbce42b4f6eeb7a846691266b240460af4c01f43a8775"
         },
         {
           "path": "scene.js",
