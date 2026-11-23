@@ -3,7 +3,7 @@
   "packs": [
     {
       "id": "ocean-abyss",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "type": "scene",
       "sceneApi": 1,
       "title": "바닷속 · 심해",
@@ -37,8 +37,30 @@
           "label": "🎣 아귀"
         }
       ],
+      "theme": {
+        "name": "🦑 바닷속 심해 테마",
+        "config": {
+          "colorTheme": "none",
+          "particleType": "none",
+          "vignette": false,
+          "sunbeams": false,
+          "auroraEffect": false,
+          "fogEffect": false,
+          "lightningEffect": false,
+          "shootingStars": false,
+          "breathingEffect": false,
+          "mouseEffect": "none",
+          "petFleeMode": "off",
+          "petCostume": "none",
+          "activeCreatures": [
+            "otter",
+            "pastel_cat",
+            "dog_chihuahua"
+          ]
+        }
+      },
       "path": "packs/ocean-abyss",
-      "size": 5025712,
+      "size": 5026236,
       "files": [
         {
           "path": "assets/anglerfish.png",
@@ -92,8 +114,8 @@
         },
         {
           "path": "manifest.json",
-          "size": 908,
-          "sha256": "38f4b1c680ad0695fb53f2177fae8172e174ba0584c0dcec402b6a9dcfa0a3ad"
+          "size": 1432,
+          "sha256": "578c006f87f03b4aa7c39bdfb8c2144b77ccc90ab650880e0706cc4d3f32b79c"
         },
         {
           "path": "scene.js",
@@ -109,7 +131,7 @@
     },
     {
       "id": "ocean-reef",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "type": "scene",
       "sceneApi": 1,
       "title": "바닷속 · 해양",
@@ -139,8 +161,30 @@
           "label": "🫧 기포 뿜기"
         }
       ],
+      "theme": {
+        "name": "🐠 바닷속 해양 테마",
+        "config": {
+          "colorTheme": "none",
+          "particleType": "none",
+          "vignette": false,
+          "sunbeams": false,
+          "auroraEffect": false,
+          "fogEffect": false,
+          "lightningEffect": false,
+          "shootingStars": false,
+          "breathingEffect": false,
+          "mouseEffect": "none",
+          "petFleeMode": "off",
+          "petCostume": "none",
+          "activeCreatures": [
+            "otter",
+            "pastel_cat",
+            "dog_retriever"
+          ]
+        }
+      },
       "path": "packs/ocean-reef",
-      "size": 2905728,
+      "size": 2906252,
       "files": [
         {
           "path": "assets/deepsea_reef.jpg",
@@ -194,8 +238,8 @@
         },
         {
           "path": "manifest.json",
-          "size": 842,
-          "sha256": "5cb95a583e5b6e7cbd216a4252b021d11221d5b8146377a83341a4a06dcdaed7"
+          "size": 1366,
+          "sha256": "27033894752b576e9b047a2900318d5eb6baad492c443df4e6a539483fedd65e"
         },
         {
           "path": "scene.js",
@@ -211,7 +255,7 @@
     },
     {
       "id": "ocean-wreck",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "type": "scene",
       "sceneApi": 1,
       "title": "바닷속 · 난파선",
@@ -244,8 +288,30 @@
           "label": "✨ 생물발광"
         }
       ],
+      "theme": {
+        "name": "🚢 바닷속 난파선 테마",
+        "config": {
+          "colorTheme": "none",
+          "particleType": "none",
+          "vignette": false,
+          "sunbeams": false,
+          "auroraEffect": false,
+          "fogEffect": false,
+          "lightningEffect": false,
+          "shootingStars": false,
+          "breathingEffect": false,
+          "mouseEffect": "none",
+          "petFleeMode": "off",
+          "petCostume": "none",
+          "activeCreatures": [
+            "otter",
+            "dog_retriever",
+            "dog_poodle"
+          ]
+        }
+      },
       "path": "packs/ocean-wreck",
-      "size": 2098405,
+      "size": 2098932,
       "files": [
         {
           "path": "assets/deepsea_wreck.jpg",
@@ -279,8 +345,8 @@
         },
         {
           "path": "manifest.json",
-          "size": 859,
-          "sha256": "4469c1b3b9fa44fb70dfeb7f93c1c86d719ad9ba9993515a0d89ae6d5da8bbfe"
+          "size": 1386,
+          "sha256": "5384417ffad1ecc1b4f8e881688cfb659020858ce3ddba9904b77e791d3b9956"
         },
         {
           "path": "scene.js",

@@ -22,6 +22,14 @@
     "tags": { "type": "array", "items": { "type": "string", "pattern": "^[a-z0-9-]+$" } },
     "thumb": { "description": "썸네일 (16:9 권장, 480×270)", "type": "string" },
     "entry": { "description": "장면 스크립트 (팩 폴더 기준 상대 경로)", "type": "string", "default": "scene.js" },
+    "theme": {
+      "description": "설치하거나 '적용'할 때 함께 만들어 적용할 권장 테마 (앱 1.2.0+). config 의 키는 앱 테마 설정 이름(대소문자 무시). 위젯 배치·배경 소스는 바꿀 수 없음. 같은 이름의 테마가 이미 있으면 새로 만들지 않고 적용만 함.",
+      "type": "object", "additionalProperties": false,
+      "properties": {
+        "name": { "type": "string", "minLength": 1, "maxLength": 60 },
+        "config": { "type": "object" }
+      }
+    },
     "petCostume": { "description": "이 장면이 켜져 있는 동안 펫에게 씌울 분장 (사용자가 '분장 없음'일 때만 적용, 앱 1.1.0+. 이전 앱은 무시)", "enum": ["santa", "rudolph", "mix", "scuba"] },
     "actions": {
       "description": "설정 창에 버튼으로 나타나는 장면 액션. 누르면 scene.action(id) 호출.",

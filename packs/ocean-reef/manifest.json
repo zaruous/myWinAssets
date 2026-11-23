@@ -1,7 +1,7 @@
 {
   "$schema": "../../schema/manifest.schema.json",
   "id": "ocean-reef",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "type": "scene",
   "sceneApi": 1,
   "title": "바닷속 · 해양",
@@ -30,5 +30,27 @@
       "id": "bubbles",
       "label": "🫧 기포 뿜기"
     }
-  ]
+  ],
+  "theme": {
+    "name": "🐠 바닷속 해양 테마",
+    "config": {
+      "colorTheme": "none",
+      "particleType": "none",
+      "vignette": false,
+      "sunbeams": false,
+      "auroraEffect": false,
+      "fogEffect": false,
+      "lightningEffect": false,
+      "shootingStars": false,
+      "breathingEffect": false,
+      "mouseEffect": "none",
+      "petFleeMode": "off",
+      "petCostume": "none",
+      "activeCreatures": [
+        "otter",
+        "pastel_cat",
+        "dog_retriever"
+      ]
+    }
+  }
 }

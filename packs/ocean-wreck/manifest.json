@@ -1,7 +1,7 @@
 {
   "$schema": "../../schema/manifest.schema.json",
   "id": "ocean-wreck",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "type": "scene",
   "sceneApi": 1,
   "title": "바닷속 · 난파선",
@@ -33,5 +33,27 @@
       "id": "glow",
       "label": "✨ 생물발광"
     }
-  ]
+  ],
+  "theme": {
+    "name": "🚢 바닷속 난파선 테마",
+    "config": {
+      "colorTheme": "none",
+      "particleType": "none",
+      "vignette": false,
+      "sunbeams": false,
+      "auroraEffect": false,
+      "fogEffect": false,
+      "lightningEffect": false,
+      "shootingStars": false,
+      "breathingEffect": false,
+      "mouseEffect": "none",
+      "petFleeMode": "off",
+      "petCostume": "none",
+      "activeCreatures": [
+        "otter",
+        "dog_retriever",
+        "dog_poodle"
+      ]
+    }
+  }
 }
