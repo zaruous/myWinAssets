@@ -2,6 +2,299 @@
   "schema": 1,
   "packs": [
     {
+      "id": "ocean-abyss",
+      "version": "1.0.0",
+      "type": "scene",
+      "sceneApi": 1,
+      "title": "바닷속 · 심해",
+      "icon": "🦑",
+      "description": "빛 한 점 없는 심해. 해파리와 빗해파리가 스스로 빛나고, 아귀의 미끼 불빛이 암반을 비추며, 어둠 속으로 대왕오징어가 희미하게 지나갑니다. 클릭하면 빛이 퍼집니다.",
+      "author": "LiveWallpaper",
+      "tags": [
+        "ocean",
+        "deep-sea",
+        "bioluminescence",
+        "night"
+      ],
+      "thumb": "thumb.jpg",
+      "entry": "scene.js",
+      "petCostume": "scuba",
+      "actions": [
+        {
+          "id": "whale",
+          "label": "🐋 고래 부르기"
+        },
+        {
+          "id": "glow",
+          "label": "✨ 생물발광"
+        },
+        {
+          "id": "squid",
+          "label": "🦑 대왕오징어"
+        },
+        {
+          "id": "angler",
+          "label": "🎣 아귀"
+        }
+      ],
+      "path": "packs/ocean-abyss",
+      "size": 5025712,
+      "files": [
+        {
+          "path": "assets/anglerfish.png",
+          "size": 156312,
+          "sha256": "37f467aed070373c7f288468a4ed709e9374b8a5d7475bd8c57346a4a5439fe3"
+        },
+        {
+          "path": "assets/comb.png",
+          "size": 122684,
+          "sha256": "0e6babc4c3b8363aea3067d219d2bfa7f0bfa6d9bb8d2e71e0bf73bc3e26b0d0"
+        },
+        {
+          "path": "assets/deepsea_abyss.jpg",
+          "size": 88238,
+          "sha256": "06ed73d3e268d2a4ee4c81fabfac95e7a23c7fd86d34e75edd340e7695aa49ed"
+        },
+        {
+          "path": "assets/fish_hatchet.png",
+          "size": 63374,
+          "sha256": "67c95f413b8c441d36c0530fe09b8d301eadbe55e47b560a20497f2e2e43c233"
+        },
+        {
+          "path": "assets/fish_lantern.png",
+          "size": 32925,
+          "sha256": "c19d6962a052a5ee8b41fdb34139c403eba2db1f067da4ba8908f6bc71355a90"
+        },
+        {
+          "path": "assets/jelly_cyan.png",
+          "size": 84698,
+          "sha256": "e69ba4870e5c70b22b064cdfc0b611111f05f043202046c0a6423881e6139e34"
+        },
+        {
+          "path": "assets/jelly_glass.png",
+          "size": 88379,
+          "sha256": "796775a35328df721f8645d3e5e10c9b6de453650b55c57aac9464296bcf2b2f"
+        },
+        {
+          "path": "assets/jelly_red.png",
+          "size": 94630,
+          "sha256": "4e946faad53f9f8cd7ef2b03eaf2dd963d50729ba6acbcec7d3f39f19ac809de"
+        },
+        {
+          "path": "assets/squid_swim.png",
+          "size": 3563180,
+          "sha256": "609a5b89781a35a7c58e2f7328ed5a5b855e4a0ac061ec970a92324bdb04cf05"
+        },
+        {
+          "path": "assets/whale_side.png",
+          "size": 643979,
+          "sha256": "6dfb879c564fd6f1bf0d332662912fc85e9ec25708535823c4df16660cb2ae54"
+        },
+        {
+          "path": "manifest.json",
+          "size": 908,
+          "sha256": "38f4b1c680ad0695fb53f2177fae8172e174ba0584c0dcec402b6a9dcfa0a3ad"
+        },
+        {
+          "path": "scene.js",
+          "size": 73371,
+          "sha256": "8a7d8e0eaca91dfeca7e01d606ed20731648d8292adc2bfe57db3b7531c058f5"
+        },
+        {
+          "path": "thumb.jpg",
+          "size": 13034,
+          "sha256": "04ade16c7fcdf9b18dd114ba836d0e336b11c0f45df93c2cb59f57f0ee2fe804"
+        }
+      ]
+    },
+    {
+      "id": "ocean-reef",
+      "version": "1.0.0",
+      "type": "scene",
+      "sceneApi": 1,
+      "title": "바닷속 · 해양",
+      "icon": "🐠",
+      "description": "햇살이 쏟아지는 산호초. 모래 위에 햇빛무늬가 일렁이고, 산호 위로 앤티아스가 구름처럼 떠다니며, 바다거북과 혹등고래가 천천히 지나갑니다. 가끔 정어리 떼가 소용돌이칩니다.",
+      "author": "LiveWallpaper",
+      "tags": [
+        "ocean",
+        "underwater",
+        "coral",
+        "reef",
+        "calm"
+      ],
+      "thumb": "thumb.jpg",
+      "entry": "scene.js",
+      "actions": [
+        {
+          "id": "whale",
+          "label": "🐋 고래 부르기"
+        },
+        {
+          "id": "sardine",
+          "label": "🐟 정어리 떼"
+        },
+        {
+          "id": "bubbles",
+          "label": "🫧 기포 뿜기"
+        }
+      ],
+      "path": "packs/ocean-reef",
+      "size": 2905728,
+      "files": [
+        {
+          "path": "assets/deepsea_reef.jpg",
+          "size": 274339,
+          "sha256": "9a1dfb7e636020b32624aad3228b7d6a613c4b04d1684ed43a4a8f70d4863d41"
+        },
+        {
+          "path": "assets/fish_anthias.png",
+          "size": 25525,
+          "sha256": "4cc7ef357a078a78bb55f5449845535e637edf9ac387ce2361c023a5faca9668"
+        },
+        {
+          "path": "assets/fish_butterfly.png",
+          "size": 71744,
+          "sha256": "7c79b4c3a1eb2c13d28bf8c58a47e7907e64a4c201d5f1049ca78e3d1bd57ecf"
+        },
+        {
+          "path": "assets/fish_clown.png",
+          "size": 50860,
+          "sha256": "ca6907b8f946c13aef8ec47c8bbe0dca02c4876ce68942107b9946ec556573fa"
+        },
+        {
+          "path": "assets/fish_sardine.png",
+          "size": 18736,
+          "sha256": "c01399a95c87e2446ebfe5169d28260e171cda92b54f0b31f9fe50e3f9459471"
+        },
+        {
+          "path": "assets/fish_tang_blue.png",
+          "size": 52184,
+          "sha256": "b91706e2eeae518d4a0049792155a2355d9efc796152f4c2b779647d960252b2"
+        },
+        {
+          "path": "assets/fish_tang_yellow.png",
+          "size": 60478,
+          "sha256": "6a72c76b614b2d91b06ae1bb34595f6ee8d8d809f8c2fde410cbda613653b4d1"
+        },
+        {
+          "path": "assets/turtle_swim.png",
+          "size": 1471163,
+          "sha256": "de3f95259e59eb2c9096de6ff47e28cdd73e0b867269f02ec564b8728f806cbb"
+        },
+        {
+          "path": "assets/whale_below.png",
+          "size": 128158,
+          "sha256": "dee50b65815752bf9d7f45e934675aef892755340139c863a3e131b1c1744698"
+        },
+        {
+          "path": "assets/whale_side.png",
+          "size": 643979,
+          "sha256": "6dfb879c564fd6f1bf0d332662912fc85e9ec25708535823c4df16660cb2ae54"
+        },
+        {
+          "path": "manifest.json",
+          "size": 842,
+          "sha256": "5cb95a583e5b6e7cbd216a4252b021d11221d5b8146377a83341a4a06dcdaed7"
+        },
+        {
+          "path": "scene.js",
+          "size": 73371,
+          "sha256": "8a7d8e0eaca91dfeca7e01d606ed20731648d8292adc2bfe57db3b7531c058f5"
+        },
+        {
+          "path": "thumb.jpg",
+          "size": 34349,
+          "sha256": "380f62144dfe255772b4f4ab9aa040a1b45ac6c4920c7ef42d66c2534130c367"
+        }
+      ]
+    },
+    {
+      "id": "ocean-wreck",
+      "version": "1.0.0",
+      "type": "scene",
+      "sceneApi": 1,
+      "title": "바닷속 · 난파선",
+      "icon": "🚢",
+      "description": "푸른 물속에 가라앉은 오래된 난파선. 선체 틈으로 빛기둥이 들고 켈프가 흔들리며, 은빛 전갱이 떼가 돌고 상어와 매가오리가 지나갑니다.",
+      "author": "LiveWallpaper",
+      "tags": [
+        "ocean",
+        "underwater",
+        "shipwreck",
+        "mystery"
+      ],
+      "thumb": "thumb.jpg",
+      "entry": "scene.js",
+      "actions": [
+        {
+          "id": "whale",
+          "label": "🐋 고래 부르기"
+        },
+        {
+          "id": "shark",
+          "label": "🦈 상어 부르기"
+        },
+        {
+          "id": "ray",
+          "label": "🦅 매가오리 부르기"
+        },
+        {
+          "id": "glow",
+          "label": "✨ 생물발광"
+        }
+      ],
+      "path": "packs/ocean-wreck",
+      "size": 2098405,
+      "files": [
+        {
+          "path": "assets/deepsea_wreck.jpg",
+          "size": 101170,
+          "sha256": "a77c3ce98f6c97754bd1deedb28a7a20b08d763fb11f397e273a314c40b794f0"
+        },
+        {
+          "path": "assets/fish_jack.png",
+          "size": 39503,
+          "sha256": "0dded3a946d08ab1354a0b4844a1f42e926772c635f4c843a593cfca63174481"
+        },
+        {
+          "path": "assets/fish_shark.png",
+          "size": 65483,
+          "sha256": "1a98838530e8466a566904f6fa7f290f2dc8f2b099472e725efe6ad39cd9a3ca"
+        },
+        {
+          "path": "assets/fish_snapper.png",
+          "size": 59026,
+          "sha256": "194bc4a50b5d0dab9343a47ebc32ad33c7b4664f616b58b4ae6bd5dab5ac17c1"
+        },
+        {
+          "path": "assets/ray_swim.png",
+          "size": 1357676,
+          "sha256": "a460a984ac31a9ac92937708baffd29b3a99010dd1c44c76e42386aeb31a4003"
+        },
+        {
+          "path": "assets/whale_far.png",
+          "size": 387229,
+          "sha256": "547e62f11d3d544762df6575668082bb5bf15bb63cbbedf181b0edc0bcb46482"
+        },
+        {
+          "path": "manifest.json",
+          "size": 859,
+          "sha256": "4469c1b3b9fa44fb70dfeb7f93c1c86d719ad9ba9993515a0d89ae6d5da8bbfe"
+        },
+        {
+          "path": "scene.js",
+          "size": 73371,
+          "sha256": "8a7d8e0eaca91dfeca7e01d606ed20731648d8292adc2bfe57db3b7531c058f5"
+        },
+        {
+          "path": "thumb.jpg",
+          "size": 14088,
+          "sha256": "202d5ade78519eca261e1bde75a32cb18b46e3f5bacfdbfc1597142daf636942"
+        }
+      ]
+    },
+    {
       "id": "rainy-window",
       "version": "1.0.0",
       "type": "scene",

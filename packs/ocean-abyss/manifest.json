@@ -1,0 +1,38 @@
+{
+  "$schema": "../../schema/manifest.schema.json",
+  "id": "ocean-abyss",
+  "version": "1.0.0",
+  "type": "scene",
+  "sceneApi": 1,
+  "title": "바닷속 · 심해",
+  "icon": "🦑",
+  "description": "빛 한 점 없는 심해. 해파리와 빗해파리가 스스로 빛나고, 아귀의 미끼 불빛이 암반을 비추며, 어둠 속으로 대왕오징어가 희미하게 지나갑니다. 클릭하면 빛이 퍼집니다.",
+  "author": "LiveWallpaper",
+  "tags": [
+    "ocean",
+    "deep-sea",
+    "bioluminescence",
+    "night"
+  ],
+  "thumb": "thumb.jpg",
+  "entry": "scene.js",
+  "petCostume": "scuba",
+  "actions": [
+    {
+      "id": "whale",
+      "label": "🐋 고래 부르기"
+    },
+    {
+      "id": "glow",
+      "label": "✨ 생물발광"
+    },
+    {
+      "id": "squid",
+      "label": "🦑 대왕오징어"
+    },
+    {
+      "id": "angler",
+      "label": "🎣 아귀"
+    }
+  ]
+}

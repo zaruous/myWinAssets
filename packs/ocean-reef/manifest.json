@@ -1,0 +1,34 @@
+{
+  "$schema": "../../schema/manifest.schema.json",
+  "id": "ocean-reef",
+  "version": "1.0.0",
+  "type": "scene",
+  "sceneApi": 1,
+  "title": "바닷속 · 해양",
+  "icon": "🐠",
+  "description": "햇살이 쏟아지는 산호초. 모래 위에 햇빛무늬가 일렁이고, 산호 위로 앤티아스가 구름처럼 떠다니며, 바다거북과 혹등고래가 천천히 지나갑니다. 가끔 정어리 떼가 소용돌이칩니다.",
+  "author": "LiveWallpaper",
+  "tags": [
+    "ocean",
+    "underwater",
+    "coral",
+    "reef",
+    "calm"
+  ],
+  "thumb": "thumb.jpg",
+  "entry": "scene.js",
+  "actions": [
+    {
+      "id": "whale",
+      "label": "🐋 고래 부르기"
+    },
+    {
+      "id": "sardine",
+      "label": "🐟 정어리 떼"
+    },
+    {
+      "id": "bubbles",
+      "label": "🫧 기포 뿜기"
+    }
+  ]
+}

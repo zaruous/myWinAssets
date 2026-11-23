@@ -1,0 +1,37 @@
+{
+  "$schema": "../../schema/manifest.schema.json",
+  "id": "ocean-wreck",
+  "version": "1.0.0",
+  "type": "scene",
+  "sceneApi": 1,
+  "title": "바닷속 · 난파선",
+  "icon": "🚢",
+  "description": "푸른 물속에 가라앉은 오래된 난파선. 선체 틈으로 빛기둥이 들고 켈프가 흔들리며, 은빛 전갱이 떼가 돌고 상어와 매가오리가 지나갑니다.",
+  "author": "LiveWallpaper",
+  "tags": [
+    "ocean",
+    "underwater",
+    "shipwreck",
+    "mystery"
+  ],
+  "thumb": "thumb.jpg",
+  "entry": "scene.js",
+  "actions": [
+    {
+      "id": "whale",
+      "label": "🐋 고래 부르기"
+    },
+    {
+      "id": "shark",
+      "label": "🦈 상어 부르기"
+    },
+    {
+      "id": "ray",
+      "label": "🦅 매가오리 부르기"
+    },
+    {
+      "id": "glow",
+      "label": "✨ 생물발광"
+    }
+  ]
+}

@@ -26,6 +26,7 @@
   const W = 1920, H = 1080;                    // 앱의 설계 해상도와 같게
   const mouse = { x: W / 2, y: H / 2, normX: 0.5, normY: 0.5 };
   const defs = {};
+  const pet = { x: 0.46, dir: 1, wait: 0 };
   window.LiveWallpaperScenes = { register(def) { defs[def.id] = def; } };
   addEventListener('mousemove', e => { mouse.normX = e.clientX / innerWidth; mouse.normY = e.clientY / innerHeight; mouse.x = mouse.normX * W; mouse.y = mouse.normY * H; });
   const show = msg => document.getElementById('err').textContent = msg;
@@ -42,7 +43,8 @@
   function start(m) {
     const root = document.getElementById('stage');
     const inst = defs[m.id].create({ root, manifest: m, mouse, get w() { return W; }, get h() { return H; },
-      asset: p => base + String(p).split('/').map(encodeURIComponent).join('/') });
+      asset: p => base + String(p).split('/').map(encodeURIComponent).join('/'),
+      pets: () => [{ x: (pet.x + 0.0225) * W, y: H * 0.95 }] });   // 펫 위치(설계 좌표) — 앱의 펫 대신 걷는 자리 표시
     const bar = document.getElementById('bar');
     for (const a of m.actions || []) {
       const b = document.createElement('button'); b.textContent = a.label;
@@ -55,11 +57,16 @@
     f.onclick = e => e.stopPropagation();
     f.onchange = () => inst.setFilter?.(f.value);
     bar.appendChild(f);
-    const pet = document.createElement('button'); pet.textContent = '펫 자리 표시';
-    pet.onclick = e => { e.stopPropagation(); const p = document.getElementById('pet'); p.style.display = p.style.display === 'none' ? '' : 'none'; };
-    bar.appendChild(pet);
+    const petBtn = document.createElement('button'); petBtn.textContent = '펫 자리 표시';
+    petBtn.onclick = e => { e.stopPropagation(); const p = document.getElementById('pet'); p.style.display = p.style.display === 'none' ? '' : 'none'; };
+    bar.appendChild(petBtn);
     addEventListener('click', () => inst.click?.());
-    const loop = t => { try { inst.frame?.(t); } catch (e) { show('frame: ' + e.message); console.error(e); return; } requestAnimationFrame(loop); };
+    const petEl = document.getElementById('pet');
+    const walkPet = () => {   // 펫 자리 표시가 좌우로 걷다가 가끔 멈춤
+      if (pet.wait > 0) { pet.wait--; } else { pet.x += pet.dir * 0.0009; if (pet.x > 0.9 || pet.x < 0.05) pet.dir *= -1; if (Math.random() < 0.003) pet.wait = 120 + Math.random() * 180; }
+      petEl.style.left = (pet.x * 100) + '%';
+    };
+    const loop = t => { try { walkPet(); inst.frame?.(t); } catch (e) { show('frame: ' + e.message); console.error(e); return; } requestAnimationFrame(loop); };
     requestAnimationFrame(loop);
     window.__inst = inst;
   }

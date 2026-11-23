@@ -55,6 +55,7 @@ window.LiveWallpaperScenes.register({
     // host.mouse     { normX, normY } 0~1 마우스 위치 (실시간 갱신되는 같은 객체)
     // host.asset(p)  팩 폴더 기준 경로 → URL. 캔버스에서 픽셀을 읽을 이미지는 img.crossOrigin = 'anonymous'
     // host.manifest  이 팩의 manifest
+    // host.pets?.()  (앱 1.1.0+) 켜진 펫 위치 [{ key, x, y }] — 설계 좌표, y 는 발 높이. 이전 앱에는 없으므로 ?. 로 호출
     return {
       frame(t) {},              // 매 프레임 (requestAnimationFrame 시각). dt 는 직접 계산하고 상한(예: 0.05초)을 둘 것
       setFilter(css) {},        // 색감 테마의 CSS filter 문자열 (선택)
@@ -68,4 +69,5 @@ window.LiveWallpaperScenes.register({
 
 - 장면은 펫·파티클·위젯 **아래**에 그려집니다. 앱의 전역 `canvas { z-index: 3 }` 규칙을 덮어쓰려면 `#id`로 z-index를 지정하세요.
 - 스타일은 `host.root` 안에 `<style>`로 넣고, 선택자는 장면 고유 id나 class로 한정하세요.
+- manifest 에 `"petCostume": "scuba"` 처럼 적으면 이 장면이 켜져 있는 동안 펫에게 그 분장을 씌웁니다(사용자가 '분장 없음'일 때만, 앱 1.1.0+). 값: `santa`·`rudolph`·`mix`·`scuba`.
 - 장면 좌표(`host.w×host.h`)는 화면 배율과 무관한 설계 해상도입니다. 캔버스에 devicePixelRatio를 곱하지 마세요(고DPI에서 2배 이상 무거워집니다).
