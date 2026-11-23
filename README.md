@@ -70,5 +70,5 @@ window.LiveWallpaperScenes.register({
 - 장면은 펫·파티클·위젯 **아래**에 그려집니다. 앱의 전역 `canvas { z-index: 3 }` 규칙을 덮어쓰려면 `#id`로 z-index를 지정하세요.
 - 스타일은 `host.root` 안에 `<style>`로 넣고, 선택자는 장면 고유 id나 class로 한정하세요.
 - manifest 에 `"theme": { "name": "🦑 바닷속 심해 테마", "config": { "colorTheme": "none", "activeCreatures": ["otter"] } }` 를 적으면 스토어에서 처음 설치하거나 '적용'을 누를 때 배경 소스와 함께 그 이름의 테마를 만들어 적용합니다(앱 1.2.0+, 위젯 배치는 그대로). 같은 이름의 테마가 이미 있으면 사용자가 고친 내용을 지키기 위해 적용만 합니다.
-- manifest 에 `"petCostume": "scuba"` 처럼 적으면 이 장면이 켜져 있는 동안 펫에게 그 분장을 씌웁니다(사용자가 '분장 없음'일 때만, 앱 1.1.0+). 값: `santa`·`rudolph`·`mix`·`scuba`.
+- manifest 에 `"petCostume": "scuba"` 처럼 적으면 이 장면이 켜져 있는 동안 펫에게 그 분장을 씌웁니다(사용자 펫 분장 설정이 '🎭 장면에 맞춤'일 때만, 앱 1.2.0+. '분장 없음'이면 씌우지 않음). 값: `santa`·`rudolph`·`mix`·`scuba`.
 - 장면 좌표(`host.w×host.h`)는 화면 배율과 무관한 설계 해상도입니다. 캔버스에 devicePixelRatio를 곱하지 마세요(고DPI에서 2배 이상 무거워집니다).

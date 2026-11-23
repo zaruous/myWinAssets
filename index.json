@@ -51,7 +51,7 @@
           "breathingEffect": false,
           "mouseEffect": "none",
           "petFleeMode": "off",
-          "petCostume": "none",
+          "petCostume": "auto",
           "activeCreatures": [
             "otter",
             "pastel_cat",
@@ -115,7 +115,7 @@
         {
           "path": "manifest.json",
           "size": 1432,
-          "sha256": "578c006f87f03b4aa7c39bdfb8c2144b77ccc90ab650880e0706cc4d3f32b79c"
+          "sha256": "bd2700055718b32430f9a58585ef68512b00f0c1b226d1c2741df324eb5561d3"
         },
         {
           "path": "scene.js",
@@ -175,7 +175,7 @@
           "breathingEffect": false,
           "mouseEffect": "none",
           "petFleeMode": "off",
-          "petCostume": "none",
+          "petCostume": "auto",
           "activeCreatures": [
             "otter",
             "pastel_cat",
@@ -239,7 +239,7 @@
         {
           "path": "manifest.json",
           "size": 1366,
-          "sha256": "27033894752b576e9b047a2900318d5eb6baad492c443df4e6a539483fedd65e"
+          "sha256": "335967e6e7b6d9d8de88e9214cd325aff8cfc6d7f5b875b3e8121c1b493bf660"
         },
         {
           "path": "scene.js",
@@ -302,7 +302,7 @@
           "breathingEffect": false,
           "mouseEffect": "none",
           "petFleeMode": "off",
-          "petCostume": "none",
+          "petCostume": "auto",
           "activeCreatures": [
             "otter",
             "dog_retriever",
@@ -346,7 +346,7 @@
         {
           "path": "manifest.json",
           "size": 1386,
-          "sha256": "5384417ffad1ecc1b4f8e881688cfb659020858ce3ddba9904b77e791d3b9956"
+          "sha256": "3b969a6c613247aa48b10814edfe83f13c4ad1b6f5acebf09380fb6994f1fadb"
         },
         {
           "path": "scene.js",

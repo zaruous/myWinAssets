@@ -45,7 +45,7 @@
       "breathingEffect": false,
       "mouseEffect": "none",
       "petFleeMode": "off",
-      "petCostume": "none",
+      "petCostume": "auto",
       "activeCreatures": [
         "otter",
         "pastel_cat",

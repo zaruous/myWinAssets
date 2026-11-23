@@ -30,7 +30,7 @@
         "config": { "type": "object" }
       }
     },
-    "petCostume": { "description": "이 장면이 켜져 있는 동안 펫에게 씌울 분장 (사용자가 '분장 없음'일 때만 적용, 앱 1.1.0+. 이전 앱은 무시)", "enum": ["santa", "rudolph", "mix", "scuba"] },
+    "petCostume": { "description": "이 장면이 켜져 있는 동안 펫에게 씌울 분장 (사용자 펫 분장 설정이 '장면에 맞춤(auto)'일 때만 적용, 앱 1.2.0+. 이전 앱은 무시)", "enum": ["santa", "rudolph", "mix", "scuba"] },
     "actions": {
       "description": "설정 창에 버튼으로 나타나는 장면 액션. 누르면 scene.action(id) 호출.",
       "type": "array",
